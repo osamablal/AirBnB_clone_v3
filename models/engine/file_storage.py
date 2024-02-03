@@ -1,12 +1,22 @@
 #!/usr/bin/python3
 """The class of File-Storage."""
 import json
+from models import base_model, amenity, city, place, review, state, user
 
 
 class FileStorage:
     """
         Putting instances to JSON and deputting to JSON.
     """
+    classes = {
+        'BaseModel': base_model.BaseModel,
+        'Amenity': amenity.Amenity,
+        'City': city.City,
+        'Place': place.Place,
+        'Review': review.Review,
+        'State': state.State,
+        'User': user.User
+    }
     __file_path = "file.json"
     __objects = {}
 
