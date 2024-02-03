@@ -1,22 +1,12 @@
 #!/usr/bin/python3
 """The class of File-Storage."""
 import json
-from models import base_model, amenity, city, place, review, state, user
 
 
 class FileStorage:
     """
         Putting instances to JSON and deputting to JSON.
     """
-    classes = {
-        'BaseModel': base_model.BaseModel,
-        'Amenity': amenity.Amenity,
-        'City': city.City,
-        'Place': place.Place,
-        'Review': review.Review,
-        'State': state.State,
-        'User': user.User
-    }
     __file_path = "file.json"
     __objects = {}
 
@@ -114,6 +104,19 @@ class FileStorage:
 
     def count(self, cls=None):
         """ counting num of objcts of classes in storage """
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
+
+        classes = {
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review
+        }
         if cls:
             obj_list = []
             obj_dict = FileStorage.__objects.values()
