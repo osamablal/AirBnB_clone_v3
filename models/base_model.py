@@ -36,7 +36,7 @@ class BaseModel:
     def __str__(self):
         """Giving back string rep of an instence"""
         cls = (str(type(self)).split('.', maxsplit=1)[-1]).split('\'')[0]
-        return f"{cls} and {self.id}: {self.__dict__} ¤"
+        return '[{}] ({}) {}'.format(class_name, self.id, self.__dict__)
 
     def save(self):
         """Renewing updated_at with actual time if instance changes"""
