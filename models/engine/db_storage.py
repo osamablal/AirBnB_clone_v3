@@ -103,3 +103,67 @@ class DBStorage:
         quitting sesion.
         """
         self.__session.close()
+
+    def get(self, cls, id):
+        """ retrieves one object """
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
+
+        classes = {
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review
+        }
+        try:
+            obj_dict = {}
+            if cls:
+                obj_class = self.__session.query(classes.get(cls)).all()
+                for item in obj_class:
+                    obj_dict[item.id] = item
+            return obj_dict[id]
+        except:
+            return None
+
+    def count(self, cls=None):
+        """Counts number of objects in storage
+
+        Args:
+            cls: optional string representing the class name
+        Returns:
+            the number of objects in storage matching the given class name.
+
+            If no name is passed, returns the count of all objects in storage.
+        """
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
+
+        classes = {
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review
+        }
+        obj_dict = {}
+        if cls:
+            obj_class = self.__session.query(classes.get(cls)).all()
+            for item in obj_class:
+                obj_dict[item.id] = item
+            return len(obj_dict)
+        else:
+            for cls_name in classes:
+                if cls_name == 'BaseModel':
+                    continue
+                obj_class = self.__session.query(classes.get(cls_name)).all()
+                for item in obj_class:
+                    obj_dict[item.id] = item
+            return len(obj_dict)
+

@@ -102,6 +102,17 @@ class FileStorage:
         """
         self.reload()
 
+    def get(self, cls, id):
+        """ retrieves one object """
+        obj_dict = {}
+        obj = None
+        if cls:
+            obj_dict = FileStorage.__objects.values()
+            for item in obj_dict:
+                if item.id == id:
+                    obj = item
+            return obj
+
     def count(self, cls=None):
         """ counting num of objcts of classes in storage """
         from models.base_model import BaseModel
